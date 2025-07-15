@@ -1,0 +1,51 @@
+@use '../abstracts'as *;
+@use 'sass:color';
+
+.bd-callout {
+  padding: 1.25rem;
+  margin: 1.25rem 0;
+  border: 1px solid #eee;
+  border-left-width: .25rem;
+  border-radius: .25rem;
+
+  h4 {
+    margin: 0 0 .25rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  code,
+  pre {
+    font-family: monospace, monospace;
+    border-radius: .25rem;
+    font-size: 1em;
+    color: #d63384;
+    line-height: 1.3rem;
+    word-wrap: break-word;
+  }
+
+  small {
+    font-size: 75%;
+    color: #d63384;
+  }
+
+  &+.bd-callout {
+    margin-top: -.25rem;
+  }
+}
+
+// ✅ Genera todas las variantes dinámicamente
+@each $name,
+$colors in $callout-color-map {
+  $border: nth($colors, 1);
+  $background: nth($colors, 2);
+  $text: nth($colors, 3);
+
+  .bd-callout-#{$name} {
+    @include callout-variant($border, $background, $text);
+  }
+}

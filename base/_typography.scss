@@ -1,0 +1,63 @@
+// 🏗 Variables base
+$fonts: (primary: null,
+  secondary: null);
+
+// 🛠️ Mixin para asignar familia según tipo
+@mixin font-family($key) {
+  $font: map-get($fonts, $key);
+
+  @if $font==null {
+    // Si está vacío, no imprime nada
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  @else if $key==secondary {
+    font-family: #{$font},
+    "Segoe UI",
+    Poppins,
+    system-ui,
+    -apple-system,
+    Roboto,
+    Helvetica Neue,
+    Arial,
+    "Noto Sans",
+    "Liberation Sans",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+  }
+
+  @else {
+    font-family: #{$font},
+    Arial,
+    Helvetica,
+    sans-serif;
+  }
+}
+
+// 🖌 Generador dinámico
+@each $name,
+$value in $fonts {
+  .font-#{$name} {
+    @include font-family($name);
+    margin: 0;
+  }
+
+  .title-#{$name} {
+    margin: 0 0 1.5rem 0;
+  }
+
+  .subtitle-#{$name} {
+    letter-spacing: -0.125rem;
+  }
+}
+
+// Ejemplo de un párrafo genérico
+p.wrapp-farrafo {
+  margin: 0 0 1.5rem 0;
+  line-height: 1.3rem;
+}
+
+ 
