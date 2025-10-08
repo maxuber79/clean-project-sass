@@ -9,9 +9,11 @@
 @import url("https://cdn.lineicons.com/4.0/lineicons.css");
 @import url("https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Karla:wght@200;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro");
 /*========================================
 =            Variables Tipografía         =
 ========================================*/
@@ -441,6 +443,417 @@ p.wrapp-farrafo {
   line-height: 1.3rem;
 }
 
+.font-geist {
+  font-family: Geist, Arial, Helvetica, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+}
+
+.title-geist {
+  margin: 0 0 1.5rem 0;
+}
+
+.subtitle-geist {
+  letter-spacing: -0.125rem;
+}
+
+.font-calsans {
+  font-family: Cal Sans, Arial, Helvetica, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+}
+
+.title-calsans {
+  margin: 0 0 1.5rem 0;
+}
+
+.subtitle-calsans {
+  letter-spacing: -0.125rem;
+}
+
+.font-inter {
+  font-family: Inter, Arial, Helvetica, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+}
+
+.title-inter {
+  margin: 0 0 1.5rem 0;
+}
+
+.subtitle-inter {
+  letter-spacing: -0.125rem;
+}
+
+.font-neue {
+  font-family: Neue Haas Grotesk Display Pro, Arial, Helvetica, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+}
+
+.title-neue {
+  margin: 0 0 1.5rem 0;
+}
+
+.subtitle-neue {
+  letter-spacing: -0.125rem;
+}
+
+/* 
+<h1 class="font-geist">Título con Geist</h1>
+<p class="font-calsans">Texto con CalSans</p>
+H1: 80 px
+H2: 60 px
+H3: 45 px (casi no uso)
+H4: 33 px
+H5: 25 px
+P: 19 px
+*/
+.fsx-80 {
+  font-size: 5rem !important;
+  line-height: 100%;
+}
+
+.fsx-75 {
+  font-size: 4.688rem !important;
+  line-height: 100%;
+}
+
+.fsx-70 {
+  font-size: 4.375rem !important;
+  line-height: 100%;
+}
+
+.fsx-65 {
+  font-size: 4.063rem !important;
+  line-height: 100%;
+}
+
+.fsx-60 {
+  font-size: 3.75rem !important;
+  line-height: 100%;
+}
+
+.fsx-55 {
+  font-size: 3.438rem !important;
+  line-height: 100%;
+}
+
+.fsx-50 {
+  font-size: 3.125rem !important;
+  line-height: 100%;
+}
+
+.fsx-45 {
+  font-size: 2.813rem !important;
+  line-height: 100%;
+}
+
+.fsx-40 {
+  font-size: 2.5rem !important;
+  line-height: 100%;
+}
+
+.fsx-35 {
+  font-size: 2.188rem !important;
+  line-height: 100%;
+}
+
+.fsx-30 {
+  font-size: 1.875rem !important;
+  line-height: 100%;
+}
+
+.fsx-25 {
+  font-size: 1.6rem !important;
+  line-height: 100%;
+}
+
+.fsx-20 {
+  font-size: 1.25rem !important;
+  line-height: 100%;
+}
+
+.fsx-19 {
+  font-size: 1.188rem !important;
+  line-height: 100%;
+}
+
+.fsx-16 {
+  font-size: 1rem !important;
+  line-height: 100%;
+}
+
+.fsx-14 {
+  font-size: 0.875rem !important;
+  line-height: 100%;
+}
+
+.fsx-12 {
+  font-size: 0.75rem !important;
+  line-height: 100%;
+}
+
+@media (max-width: 480px) {
+  .fsx-sm-80 {
+    font-size: 5rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-75 {
+    font-size: 4.688rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-70 {
+    font-size: 4.375rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-65 {
+    font-size: 4.063rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-60 {
+    font-size: 3.75rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-55 {
+    font-size: 3.438rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-50 {
+    font-size: 3.125rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-45 {
+    font-size: 2.813rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-40 {
+    font-size: 2.5rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-35 {
+    font-size: 2.188rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-30 {
+    font-size: 1.875rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-25 {
+    font-size: 1.6rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-20 {
+    font-size: 1.25rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-19 {
+    font-size: 1.188rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-16 {
+    font-size: 1rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-14 {
+    font-size: 0.875rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-sm-12 {
+    font-size: 0.75rem !important;
+    line-height: 100% !important;
+  }
+}
+@media (max-width: 768px) {
+  .fsx-md-80 {
+    font-size: 5rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-75 {
+    font-size: 4.688rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-70 {
+    font-size: 4.375rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-65 {
+    font-size: 4.063rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-60 {
+    font-size: 3.75rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-55 {
+    font-size: 3.438rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-50 {
+    font-size: 3.125rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-45 {
+    font-size: 2.813rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-40 {
+    font-size: 2.5rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-35 {
+    font-size: 2.188rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-30 {
+    font-size: 1.875rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-25 {
+    font-size: 1.6rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-20 {
+    font-size: 1.25rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-19 {
+    font-size: 1.188rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-16 {
+    font-size: 1rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-14 {
+    font-size: 0.875rem !important;
+    line-height: 100% !important;
+  }
+  .fsx-md-12 {
+    font-size: 0.75rem !important;
+    line-height: 100% !important;
+  }
+}
+/* 
+.fsx-75 {
+  font-size: 75px;
+  line-height: 1.2;
+}
+
+.fsx-19 {
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+.fsx-16 {
+  font-size: 16px;
+  line-height: 1.2;
+}
+*/
+.text--primary {
+  color: !important;
+}
+
+.text--secondary {
+  color: !important;
+}
+
+.text--tertiary {
+  color: !important;
+}
+
+.text--accent {
+  color: !important;
+}
+
+.text--success {
+  color: #10b981 !important;
+}
+
+.text--hover-success:hover {
+  color: #10b981;
+}
+
+a.link--success {
+  color: #10b981;
+}
+a.link--success:hover, a.link--success:focus {
+  color: #10b981;
+}
+
+.text--danger {
+  color: #ef4444 !important;
+}
+
+.text--hover-danger:hover {
+  color: #ef4444;
+}
+
+a.link--danger {
+  color: #ef4444;
+}
+a.link--danger:hover, a.link--danger:focus {
+  color: #ef4444;
+}
+
+.text--info {
+  color: #6366f1 !important;
+}
+
+.text--hover-info:hover {
+  color: #6366f1;
+}
+
+a.link--info {
+  color: #6366f1;
+}
+a.link--info:hover, a.link--info:focus {
+  color: #6366f1;
+}
+
+.text--warning {
+  color: #fbbf24 !important;
+}
+
+.text--hover-warning:hover {
+  color: #fbbf24;
+}
+
+a.link--warning {
+  color: #fbbf24;
+}
+a.link--warning:hover, a.link--warning:focus {
+  color: #fbbf24;
+}
+
+.text--white {
+  color: #ffffff !important;
+}
+
+.text--hover-white:hover {
+  color: #ffffff;
+}
+
+a.link--white {
+  color: #ffffff;
+}
+a.link--white:hover, a.link--white:focus {
+  color: #ffffff;
+}
+
+.text--getstarted {
+  color: #2563eb !important;
+}
+
+.text--hover-getstarted:hover {
+  color: #2563eb;
+}
+
+a.link--getstarted {
+  color: #2563eb;
+}
+a.link--getstarted:hover, a.link--getstarted:focus {
+  color: #2563eb;
+}
+
+/* 
+<p class="text-primary">Título azul primario</p>
+<a class="link-accent" href="#">Link en color accent</a>
+<button class="btn text-warning text-hover-danger">…</button>
+
+*/
 /*
  * @helpers icons
  **/
