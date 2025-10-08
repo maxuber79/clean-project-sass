@@ -1,0 +1,19 @@
+{
+  "name": "webmain-sass-starter",
+  "version": "1.0.0",
+  "description": "Starter SCSS modular con arquitectura 7-1, tokens y utilidades",
+  "private": false,
+  "scripts": {
+    "dev": "sass --watch main.scss:main.css --style=expanded",
+    "build": "sass main.scss:main-dist.css --style=compressed --no-source-map"
+  },
+  "author": "Claudio (WEBMAIN)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/USUARIO/REPO.git"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0"
+  }
+}
