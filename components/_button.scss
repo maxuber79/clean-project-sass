@@ -1,164 +1,14 @@
 @use '../abstracts'as *;
 @use 'sass:color';
 
-/*
-* @Buttons             
-**/
-@each $type,
-$color in $btn-color-map {
-  $base-color: if(type-of($color)=='color', $color, #ffffff);
-  $darker-color: color.adjust($base-color, $lightness: -20%);
-  $lighter-color: color.adjust($base-color, $lightness: 20%);
+// ============================================================
+// 🔘 Componente: BUTTON (Webmain)
+// Descripción: Sistema de botones con variantes "filled" y "outline".
+// Convención: .wm-btn--filled-{type} / .wm-btn--outline-{type}
+// ============================================================
 
-  .btn-full {
-    padding: $padding;
-    border-radius: $b-radius !important;
-    box-sizing: border-box;
-    border-width: 2px;
-    display: inline-block;
-    font-family: $font-buttons, sans-serif;
-    font-size: $font-size;
-    color: $font-white;
-    font-weight: $font-weight;
-    transition: all 0.2s ease-in-out;
-    line-height: 2;
-    width: $btn-width;
-
-    @media (max-width: 640px) {
-      display: block;
-      margin: 1.25rem auto;
-      width: 100%;
-    }
-
-    &.--#{$type} {
-      border-color: $color;
-      color: $font-white;
-      background-color: $color;
-      text-decoration: none !important;
-
-      &:hover,
-      &:focus {
-        color: $white;
-        background-color: $darker-color;
-        border-color: $color;
-      }
-
-      &:focus {
-        box-shadow: 0 0 0 0.2rem $lighter-color;
-      }
-
-      &[disabled]:hover,
-      &[disabled]:focus {
-        color: $color;
-        background-color: transparent;
-        border-color: $color;
-      }
-
-      // 🌗 Dark Mode Styles
-      body.dark-mode & {
-        $real-color: if(type-of($color)=='color', $color, #ffffff);
-        background-color: darken($real-color, 5%);
-        color: $white;
-        border-color: $color;
-
-        &:hover,
-        &:focus {
-          background-color: $darker-color;
-          color: $white;
-        }
-      }
-    }
-  }
-
-  .btn-border {
-    padding: $padding;
-    border-radius: $b-radius;
-    box-sizing: border-box;
-    border-width: 2px;
-    background-color: transparent;
-    display: inline-block;
-    font-family: $font-buttons, sans-serif;
-    font-size: $font-size;
-    font-weight: $font-weight;
-    transition: all 0.2s ease-in-out;
-    line-height: 2;
-    width: $btn-width;
-    text-decoration: none;
-
-    @media (max-width: 640px) {
-      display: block;
-      margin: 1.25rem auto;
-      width: 100%;
-    }
-
-    &.--#{$type} {
-      border: 2px solid $color;
-      color: $color;
-
-      &:hover,
-      &:focus {
-        background-color: $darker-color;
-        color: $white !important;
-        border-color: $color;
-      }
-
-      &:focus {
-        box-shadow: 0 0 0 0.2rem $lighter-color;
-      }
-
-      &[disabled]:hover,
-      &[disabled]:focus {
-        color: $color;
-        background-color: transparent;
-        border-color: $color;
-      }
-
-      // 🌗 Dark Mode Styles
-      body.dark-mode & {
-        background-color: transparent;
-        $real-color: if(type-of($color)=='color', $color, #ffffff);
-        border-color: lighten($real-color, 10%);
-        color: lighten($real-color, 10%);
-
-        &:hover,
-        &:focus {
-          background-color: $darker-color;
-          color: $white !important;
-        }
-      }
-    }
-  }
-}
-
-/*
-* @Buttons wrapper           
-**/
-.wrapp-btn {
-  display: inline-block;
-  width: 100%;
-
-  @media (max-width: 640px) {
-    margin: 0.5rem 0;
-    text-align: center; // Se centraliza por defecto en móviles
-  }
-
-  &.btn-left {
-    text-align: left;
-  }
-
-  &.btn-right {
-    text-align: right;
-  }
-
-  &.btn-center {
-    text-align: center;
-  }
-}
-
-/*
-* @Buttons Sizes         
-**/
-@mixin size-btn($py, $px, $fsize, $lh, $radius: null) {
+// 🧩 Mixins de tamaño
+@mixin wm-btn-size($py, $px, $fsize, $lh, $radius: null) {
   padding: $py $px !important;
   font-size: $fsize !important;
   line-height: $lh !important;
@@ -168,114 +18,176 @@ $color in $btn-color-map {
   }
 }
 
-$btn-sizes: (btn-xl: (0.5rem, 1.875rem, 1.3rem, 1.8, 22px),
-  btn-lg: (0.5rem, 2.3rem, 1.25rem, 1.5, null),
-  btn-md: (0.375rem, 1.7rem, 1rem, 1.5, null),
-  btn-sm: (0.25rem, 0.6rem, 0.75rem, 1.5, null),
-  btn-xxs: (0.25rem, 1.3rem, 0.7rem, 1.6, null));
+// 🧮 Mapa de tamaños
+$wm-btn-sizes: (xl: (0.5rem, 1.875rem, 1.3rem, 1.8, 22px),
+  lg: (0.5rem, 2.3rem, 1.25rem, 1.5, null),
+  md: (0.375rem, 1.7rem, 1rem, 1.5, null),
+  sm: (0.25rem, 0.6rem, 0.75rem, 1.5, null),
+  xxs: (0.25rem, 1.3rem, 0.7rem, 1.6, null));
 
-.btn {
+// ============================================================
+// 🧱 Base del botón
+// ============================================================
 
-  &.btn-border,
-  &.btn-full,
-  &.btn-getstarted,
-  &.btn-type,
-  &.btn-getstarted,
-  &.btn-border,
-  &.btn-table {
+.wm-btn {
+  display: inline-block;
+  font-family: $font-buttons, sans-serif;
+  font-weight: $font-weight;
+  font-size: $font-size;
+  border-radius: $b-radius;
+  border-width: 2px;
+  border-style: solid;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  line-height: 2;
+  box-sizing: border-box;
+  user-select: none;
+  text-align: center;
 
-    @each $size,
-    $values in $btn-sizes {
-      &.#{$size} {
-        @include size-btn(nth($values, 1), nth($values, 2), nth($values, 3), nth($values, 4), nth($values, 5));
+  // Adaptación móvil
+  @media (max-width: 640px) {
+    display: block;
+    margin: 1.25rem auto;
+    width: 100%;
+  }
+
+  // Tamaños dinámicos
+  @each $name,
+  $values in $wm-btn-sizes {
+    &--#{$name} {
+      @include wm-btn-size(nth($values, 1),
+        nth($values, 2),
+        nth($values, 3),
+        nth($values, 4),
+        nth($values, 5));
+    }
+  }
+
+  // Íconos dentro del botón
+  .icono {
+    font-size: inherit !important;
+  }
+
+  &--sm .icono {
+    font-size: 0.875rem !important;
+  }
+
+  &--xxs .icono {
+    font-size: 0.7rem !important;
+  }
+}
+
+// ============================================================
+// 🎨 Generador de variantes de color
+// ============================================================
+
+@each $type,
+$color in $btn-color-map {
+  $base-color: if(type-of($color)=='color', $color, #ffffff);
+  $darker-color: color.adjust($base-color, $lightness: -20%);
+  $lighter-color: color.adjust($base-color, $lightness: 20%);
+
+  // ✅ Botón relleno
+  .wm-btn--filled-#{$type} {
+    @extend .wm-btn;
+    background-color: $base-color;
+    border-color: $base-color;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      background-color: $darker-color;
+      border-color: $base-color;
+      color: $white;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem $lighter-color;
+    }
+
+    &[disabled],
+    &.disabled {
+      background-color: lighten($base-color, 25%);
+      border-color: lighten($base-color, 25%);
+      color: rgba($white, 0.6);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    // 🌗 Dark Mode
+    body.dark-mode & {
+      background-color: darken($base-color, 5%);
+      border-color: $base-color;
+
+      &:hover,
+      &:focus {
+        background-color: $darker-color;
       }
     }
+  }
 
-    .icono {
-      font-size: inherit !important; // Hereda el tamaño del botón
+  // 🪶 Botón con borde
+  .wm-btn--outline-#{$type} {
+    @extend .wm-btn;
+    background-color: transparent;
+    border-color: $base-color;
+    color: $base-color;
+
+    &:hover,
+    &:focus {
+      background-color: $base-color;
+      color: $white;
     }
 
-    &.btn-sm .icono {
-      font-size: .875rem !important;
+    &:focus {
+      box-shadow: 0 0 0 0.2rem $lighter-color;
     }
 
-    &.btn-xxs .icono {
-      font-size: .7rem !important;
+    &[disabled],
+    &.disabled {
+      border-color: lighten($base-color, 25%);
+      color: lighten($base-color, 25%);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    // 🌗 Dark Mode
+    body.dark-mode & {
+      border-color: lighten($base-color, 10%);
+      color: lighten($base-color, 10%);
+
+      &:hover,
+      &:focus {
+        background-color: $darker-color;
+        color: $white;
+      }
     }
   }
 }
 
-.wrapp-links {
+// ============================================================
+// 📐 Alineaciones y envoltorios
+// ============================================================
+
+.wm-btn-wrapper {
   display: inline-block;
-  margin: 1rem 0 0 0;
   width: 100%;
 
   @media (max-width: 640px) {
-    text-align: left;
-    display: inline-block;
-  }
-
-  &.links-right {
-    text-align: right;
-
-    @media (max-width: 640px) {
-      text-align: left;
-      display: inline-block;
-    }
-  }
-
-  &.links-center {
+    margin: 0.5rem 0;
     text-align: center;
-
-    @media (max-width: 640px) {
-      text-align: left;
-      display: inline-block;
-    }
   }
 
-  &.links-left {
+  &--left {
     text-align: left;
-
-    @media (max-width: 640px) {
-      text-align: left;
-      display: inline-block;
-    }
   }
-}
 
-$btn-sizes: (btn-xl: (0.5rem, 1.875rem, 1.3rem, 1.8, 22px),
-  btn-lg: (0.5rem, 2.3rem, 1.25rem, 1.5, null),
-  btn-md: (0.375rem, 1.7rem, 1rem, 1.5, null),
-  btn-sm: (0.25rem, 0.6rem, 0.75rem, 1.5, null),
-  btn-xxs: (0.25rem, 1.3rem, 0.7rem, 1.6, null));
+  &--right {
+    text-align: right;
+  }
 
-.btn {
-
-  &.btn-border,
-  &.btn-full,
-  &.btn-getstarted,
-  &.btn-type,
-  &.btn-getstarted,
-  &.btn-border,
-  &.btn-table {
-
-    @each $size,
-    $values in $btn-sizes {
-      &.#{$size} {
-        @include size-btn(nth($values, 1), nth($values, 2), nth($values, 3), nth($values, 4), nth($values, 5));
-      }
-    }
-
-    .icono {
-      font-size: inherit !important; // Hereda el tamaño del botón
-    }
-
-    &.btn-sm .icono {
-      font-size: .875rem !important;
-    }
-
-    &.btn-xxs .icono {
-      font-size: .7rem !important;
-    }
+  &--center {
+    text-align: center;
   }
 }

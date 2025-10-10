@@ -1,57 +1,33 @@
 @use '../abstracts'as *;
 @use 'sass:color';
 
-/*
-* @Cards        
-**/
-.card {
-  box-shadow: none;
-  transition: background 0.25s ease;
-  border: none;
-  box-shadow: 0px 0 15px 3px rgb(1 41 112 / 6%);
-  border-radius: $card-radius-xl;
-  overflow: hidden;
+// ============================================================
+// 🧩 Componente: CARD (Webmain)
+// Descripción: Contenedor visual para secciones, widgets o métricas.
+// Convención: .wm-card--filled-{type} / .wm-card--outline-{type}
+// ============================================================
+
+.wm-card {
   position: relative;
   z-index: 5;
+  overflow: hidden;
+  border: none;
+  border-radius: $card-radius-xl;
+  box-shadow: 0 0 15px 3px rgba(1, 41, 112, 0.06);
+  transition: background 0.25s ease, box-shadow 0.25s ease;
 
-  .card-menu {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    z-index: 20;
-
-    .dropdown {
-      .dropdown-toggle {
-        border: none;
-        padding: 0;
-        background-color: transparent;
-
-        &::after {
-          content: none;
-        }
-
-        i {
-          font-size: 1.6rem;
-          color: $dark;
-        }
-
-        &.show {
-          background-color: transparent;
-          border-color: transparent;
-        }
-      }
-    }
+  // 🔹 Variantes básicas
+  &--transparent {
+    background-color: transparent;
+    box-shadow: none;
   }
 
-  &.tale-bg {
+  &--tale-bg {
     background-color: #282f3a;
   }
 
-  &.transparent {
-    background: transparent;
-  }
-
-  .card-body {
+  // 📦 Cuerpo principal
+  .wm-card__body {
     padding: 1.25rem;
     background-color: transparent;
     text-align: initial;
@@ -60,27 +36,11 @@
       text-decoration: none;
     }
 
-    +.card-body {
+    +.wm-card__body {
       padding-top: 1rem;
     }
 
-    .dropdown {
-      &.dropdown-icon {
-
-        .dropdown-toggle {
-          &::after {
-            content: none;
-          }
-
-          i {
-            font-size: 1.5rem;
-            color: $primary;
-          }
-        }
-      }
-    }
-
-    .card-title {
+    .wm-card__title {
       color: $dark;
       margin-bottom: 1.2rem;
       text-transform: capitalize;
@@ -88,21 +48,50 @@
       font-weight: 600;
     }
 
-    .card-subtitle {
+    .wm-card__subtitle {
       color: $dark;
       font-size: 1rem;
       font-weight: 600;
-      margin-bottom: 1.063rem;
+      margin-bottom: 1rem;
     }
 
-    .card-description {
+    .wm-card__description {
       margin-bottom: 0.875rem;
       font-weight: 400;
       color: $dark;
     }
   }
 
-  &.card-weather {
+  // ⚙️ Menú (dropdown dentro de la card)
+  .wm-card__menu {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    z-index: 20;
+
+    .dropdown-toggle {
+      border: none;
+      padding: 0;
+      background-color: transparent;
+
+      &::after {
+        content: none;
+      }
+
+      i {
+        font-size: 1.6rem;
+        color: $dark;
+      }
+
+      &.show {
+        background-color: transparent;
+        border-color: transparent;
+      }
+    }
+  }
+
+  // 🌤️ Ejemplo especial de uso (card-weather)
+  &--weather {
     .weather-daily {
       .weather-day {
         opacity: 0.5;
@@ -123,123 +112,90 @@
   }
 }
 
+// ============================================================
+// 🎨 Variantes de color dinámicas
+// ============================================================
+
 @each $type,
 $color in $card-color-map {
   $base-color: if(type-of($color)=='color', $color, #ffffff);
-  $darker-color: color.adjust($base-color, $lightness: -15%); //darken($color, 15%);
-  $lighter-color: color.adjust($base-color, $lightness: 15%); //lighten($color, 20%);
+  $darker-color: color.adjust($base-color, $lightness: -15%);
+  $lighter-color: color.adjust($base-color, $lightness: 15%);
 
-  .card {
-    transition: background 0.25s ease;
-    border: none;
-    box-shadow: 0px 0 15px 3px rgb(1 41 112 / 6%);
+  // 🟩 CARD RELLENA (filled)
+  .wm-card--filled-#{$type} {
+    @extend .wm-card;
+    background-color: $base-color;
+    color: $white;
 
-    &.card-#{$type} {
-      background-color: $color;
-      color: $white;
+    &:hover,
+    &:focus {
+      background-color: color.adjust($base-color, $lightness: 5%);
+      box-shadow: 0 0 18px 5px rgba(0, 0, 0, 0.08);
+    }
 
-      &:hover,
-      &:focus {
-        background: color.adjust($base-color, $lightness: 5%); //lighten($color, 5%);
+    .wm-card__body {
+      .wm-card__title {
+        color: $white;
+        font-size: 1.75rem;
       }
 
-      .card-body {
-        .card-title {
-          font-size: 2rem;
-          color: $white;
-          margin-bottom: 1rem;
-        }
+      .wm-card__description,
+      p,
+      i {
+        color: $lighter-color;
+      }
+    }
 
+    .wm-card__menu i {
+      color: $white;
+    }
+
+    // 🌗 Dark Mode
+    body.dark-mode & {
+      background-color: color.adjust($base-color, $lightness: -10%);
+
+      .wm-card__body {
+
+        .wm-card__title,
         p {
           color: $white;
         }
 
         i {
-          font-size: 4rem;
-          color: $lighter-color;
+          color: color.adjust($base-color, $lightness: 15%);
         }
       }
 
-      .card-menu {
-        .dropdown {
-          .dropdown-toggle {
-            &::after {
-              content: none;
-            }
-
-            i {
-              font-size: 1.6rem;
-              color: $white;
-            }
-
-            &.show {
-              background-color: transparent;
-              border-color: transparent;
-            }
-          }
-        }
-      }
-
-      // 🌗 DARK MODE
-      body.dark-mode & {
-        background-color: color.adjust($base-color, $lightness: -10%); //darken($color, 10%);
+      .wm-card__menu i {
         color: $white;
-
-        .card-body {
-
-          .card-title,
-          p {
-            color: $white;
-          }
-
-          i {
-            color: color.adjust($base-color, $lightness: 15%); // lighten($color, 15%);
-          }
-        }
-
-        .card-menu .dropdown .dropdown-toggle i {
-          color: $white;
-        }
       }
     }
+  }
 
-    &.card-outline-#{$type} {
-      border: 1px solid $color;
+  // 🪶 CARD CON BORDE (outline)
+  .wm-card--outline-#{$type} {
+    @extend .wm-card;
+    background-color: transparent;
+    border: 1px solid $base-color;
+    color: $dark;
 
-      .card-menu {
-        .dropdown {
-          .dropdown-toggle {
-            &::after {
-              content: none;
-            }
+    .wm-card__menu i {
+      color: $base-color;
+    }
 
-            i {
-              font-size: 1.6rem;
-              color: $color;
-            }
+    &:hover,
+    &:focus {
+      background-color: mix($base-color, #fff, 90%);
+    }
 
-            &.show {
-              background-color: transparent;
-              border-color: transparent;
-            }
-          }
-        }
-      }
+    // 🌗 Dark Mode (outline)
+    body.dark-mode & {
+      border-color: lighten($base-color, 15%);
+      color: lighten($base-color, 15%);
 
-      // 🌗 DARK MODE outline
-      body.dark-mode & {
-        background-color: transparent;
-        border-color: color.adjust($base-color, $lightness: 15%);
-
-        .card-menu {
-          .dropdown {
-            .dropdown-toggle {
-              i {
-                color: color.adjust($base-color , $lightness: 15%); //lighten($color, 15%);
-              }
-            }
-          }
-        }
+      .wm-card__menu i {
+        color: lighten($base-color, 15%);
       }
     }
   }

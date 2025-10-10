@@ -1,12 +1,18 @@
 @use '../abstracts'as *;
 @use 'sass:color';
 
-.badge {
+// ============================================================
+// 🏷️ Componente: BADGE (Webmain)
+// Descripción: Insignias visuales para estados, categorías o tags.
+// Convención: .wm-badge--filled-{type} / .wm-badge--outline-{type}
+// ============================================================
+
+.wm-badge {
   font-family: $font-base, sans-serif;
   font-weight: 500;
   font-size: 0.625rem;
   line-height: 1;
-  padding: 0.276rem .512rem;
+  padding: 0.276rem 0.512rem;
   border-radius: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -15,34 +21,37 @@
   vertical-align: middle;
   transition: all 0.2s ease;
 
-  &.badge-pill {
+  &--pill {
     border-radius: 10rem;
   }
 }
 
+// 🎨 Generador dinámico según mapa de colores
 @each $type,
 $pair in $badge-color-map {
   $bg-color: nth($pair, 1);
   $text-color: nth($pair, 2);
-
-  // ✅ Si no es color, usar fallback
   $safe-bg: if(type-of($bg-color)=='color', $bg-color, #999);
-
-  $hover-color: mix($safe-bg, #fff, 80%);
   $border-color: $safe-bg;
+  $hover-color: mix($safe-bg, #fff, 80%);
 
-  // 🎨 Badge con fondo sólido
-  .-full-#{$type} {
-    @extend .badge;
-    background-color: $bg-color;
+  // ✅ Versión con fondo sólido
+  .wm-badge--filled-#{$type} {
+    @extend .wm-badge;
+    background-color: $safe-bg;
     color: $text-color;
+
+    &:hover {
+      background-color: color.scale($safe-bg, $lightness: 10%);
+      color: $text-color;
+    }
   }
 
-  // 🪶 Badge con borde (outline)
-  .-outline-#{$type} {
-    @extend .badge;
+  // 🪶 Versión con borde (outline)
+  .wm-badge--outline-#{$type} {
+    @extend .wm-badge;
     background-color: transparent;
-    color: $bg-color;
+    color: $safe-bg;
     border: 1px solid $border-color;
 
     &:hover {
@@ -53,24 +62,19 @@ $pair in $badge-color-map {
 
   // 🌑 Dark mode
   body.dark-mode {
-    .-full-#{$type} {
-      $real-color: if(type-of($bg-color)=='color', $bg-color, #ffffff);
-      background-color: lighten($real-color, 20%);
-      color: lighten($real-color, 30%);
+    .wm-badge--filled-#{$type} {
+      background-color: color.adjust($safe-bg, $lightness: 20%);
+      color: lighten($text-color, 25%);
     }
 
-    .-outline-#{$type} {
-      $real-color: if(type-of($bg-color)=='color', $bg-color, #ffffff);
-      color: lighten($real-color, 15%);
-      border-color: lighten($real-color, 15%);
-      background-color: transparent;
+    .wm-badge--outline-#{$type} {
+      color: lighten($safe-bg, 15%);
+      border-color: lighten($safe-bg, 15%);
 
       &:hover {
-        $real-color: if(type-of($bg-color)=='color', $bg-color, #ffffff);
-        background-color: mix($real-color, #000, 40%);
-        color: darken($real-color, 0%);
+        background-color: mix($safe-bg, #000, 40%);
+        color: lighten($text-color, 25%);
       }
     }
   }
-
 }

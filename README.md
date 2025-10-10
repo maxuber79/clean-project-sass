@@ -1,14 +1,14 @@
-# WEBMAIN SASS Starter
+# WEBMAIN SCSS Starter
 
-> Base SCSS modular para proyectos front (WordPress, Angular, sitios estáticos).  
-> Arquitectura 7-1, tokens de diseño, utilidades y helpers de debug.
+> Base **SCSS modular y escalable** para proyectos front-end (WordPress, Angular, sitios estáticos).  
+> Arquitectura 7-1, tokens de diseño, utilidades y helpers de debug.  
 
 [![Estado](https://img.shields.io/badge/status-en%20uso-4caf50)](#)
 [![Sass](https://img.shields.io/badge/Sass-Dart%20Sass-cc6699.svg)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 **Autor:** Claudio — WEBMAIN  
-**Repo:** _reemplaza_ con la URL de tu repositorio (por ejemplo, `https://github.com/webmain-cl/webmain-sass-starter`)
+**Repo:** [github.com/maxuber79/clean-project-sass](https://github.com/maxuber79/clean-project-sass)
 
 ---
 
@@ -18,10 +18,10 @@
 .
 ├─ abstracts/     # Variables, maps, mixins, funciones
 ├─ base/          # Reset/base, tipografía, helpers globales
-├─ components/    # Botones, cards, modales, etc.
+├─ components/    # Botones, badges, cards, etc. (.wm-*)
 ├─ helps/         # Debug RWD y utilidades de inspección
 ├─ layout/        # Grid, header, footer, contenedores
-├─ pages/         # Estilos específicos por página/vista
+├─ pages/         # Estilos por página o vista
 ├─ themes/        # Paletas temáticas (light/dark/brand)
 ├─ utilities/     # Clases utilitarias (.text--*, .bg--*, .fsx-*)
 ├─ vendors/       # CSS de terceros (normalize, plugins)
@@ -30,27 +30,28 @@
 └─ main-dist.css  # Build producción (min)
 ```
 
-> Convención: **7-1** (7 carpetas + 1 entrypoint). Prefijos sugeridos: `text--`, `bg--`, `border--`, `fsx-`, `debug-`.
+> Convención: **7-1**.  
+> Prefijo oficial del sistema: **`wm-`** (ej: `.wm-btn--filled-primary`, `.wm-badge--outline-success`).
 
 ---
 
 ## 🚀 Requisitos
 
-- **Dart Sass** (recomendado) o **Prepros** si prefieres GUI.
-- Node 18+ si usarás scripts `npm` (opcional).
+- **Dart Sass** (recomendado) o **Prepros** si prefieres GUI.  
+- **Node 18+** si usarás scripts `npm`.
 
-### Instalación rápida con npm (opcional)
+### Instalación rápida
 ```bash
 npm i -D sass
 ```
 
-### Scripts sugeridos (`package.json`)
+### Scripts (`package.json`)
 ```json
 {
-	"scripts": {
-		"dev": "sass --watch main.scss:main.css --style=expanded",
-		"build": "sass main.scss:main-dist.css --style=compressed --no-source-map"
-	}
+  "scripts": {
+    "dev": "sass --watch main.scss:main.css --style=expanded",
+    "build": "sass main.scss:main-dist.css --style=compressed --no-source-map"
+  }
 }
 ```
 
@@ -74,67 +75,87 @@ $white:   #ffffff;
 $getstarted: #222222;
 
 $theme-colors: (
-	primary:   $primary,
-	secondary: $secondary,
-	accent:    $accent,
-	success:   $success,
-	danger:    $danger,
-	warning:   $warning,
-	info:      $info,
-	white:     $white,
-	getstarted:$getstarted
+  primary:   $primary,
+  secondary: $secondary,
+  accent:    $accent,
+  success:   $success,
+  danger:    $danger,
+  warning:   $warning,
+  info:      $info,
+  white:     $white,
+  getstarted:$getstarted
 ) !default;
 ```
 
 ---
 
-## 🔧 Utilidades
+## 🔘 Componentes base
 
-Colores:
+### Buttons (`components/_button.scss`)
 ```scss
-// utilities/_colors.scss
+.wm-btn--filled-primary { background: $primary; color: $white; }
+.wm-btn--outline-accent { border-color: $accent; color: $accent; }
+
+body.dark-mode .wm-btn--filled-primary {
+  background: lighten($primary, 10%);
+}
+```
+
+### Badges (`components/_badge.scss`)
+```scss
+.wm-badge--filled-success  { background: $success; color: $white; }
+.wm-badge--outline-danger  { border: 1px solid $danger; color: $danger; }
+```
+
+### Cards (`components/_card.scss`)
+```scss
+.wm-card--filled-primary { background: $primary; color: $white; }
+.wm-card--outline-info   { border: 1px solid $info; }
+```
+
+> Todos los componentes soportan **modo oscuro** mediante `body.dark-mode`.
+
+---
+
+## 🧪 Utilidades y helpers
+
+### Colores
+```scss
 @each $name, $value in $theme-colors {
-	.text--#{$name}   { color: #{$value} !important; }
-	.bg--#{$name}     { background-color: #{$value} !important; }
-	.border--#{$name} { border-color: #{$value} !important; }
-	.text--hover-#{$name}:hover { color: #{$value}; }
+  .text--#{$name}   { color: #{$value} !important; }
+  .bg--#{$name}     { background-color: #{$value} !important; }
+  .border--#{$name} { border-color: #{$value} !important; }
 }
 ```
 
-Tamaños:
+### Tipografías y tamaños
 ```scss
-// utilities/_font-sizes.scss
-$font-sizes: (80: 5rem, 75: 4.688rem, 40: 2.5rem, 19: 1.188rem, 16: 1rem);
+$font-sizes: (80: 5rem, 40: 2.5rem, 19: 1.188rem);
 @each $k, $v in $font-sizes {
-	.fsx-#{$k} { font-size: $v; line-height: 100%; }
+  .fsx-#{$k} { font-size: $v; line-height: 100%; }
 }
 ```
 
----
-
-## 🧪 Debug RWD
-
-`helps/_debug.scss` incluye HUD responsivo (toggle `$debug-rwd-enabled`).
-
-Uso:
-```html
-<section class="debug-rwd">Bloque a inspeccionar</section>
+### Debug RWD
+```scss
+// helps/_debug.scss
+$debug-rwd-enabled: true;
+.debug-rwd { outline: 1px dashed #ff5c00; }
 ```
 
 ---
 
-## 🏗️ Flujo
+## 🧱 Flujo de trabajo
 
-1. Ajusta tokens en `abstracts/` (colores, tipografías, spacing).
-2. Activa/desactiva módulos en `main.scss`.
-3. Compila:
-	 - Dev: `npm run dev` (o Prepros watch).
-	 - Prod: `npm run build`.
-4. Integra en tu proyecto (WP, Angular o estático).
+1. Ajusta tokens y mapas en `abstracts/`.
+2. Activa módulos en `main.scss`.
+3. Compila con `npm run dev` o Prepros.
+4. Usa `.wm-*` para evitar conflictos con frameworks externos.
+5. Integra en WordPress, Angular o sitio estático.
 
 ---
 
-## 📄 `main.scss` (ejemplo de imports)
+## 🧰 Import central (`main.scss`)
 
 ```scss
 /* main.scss */
@@ -146,34 +167,32 @@ Uso:
 @use 'utilities/font-sizes';
 @use 'utilities/colors';
 @use 'layout/grid';
-@use 'components/buttons';
+@use 'components/button';
+@use 'components/badge';
+@use 'components/card';
 @use 'helps/debug';
 @use 'themes/light';
 ```
 
 ---
 
-## 🐛 Troubleshooting
+## 🧠 Troubleshooting
 
-- **“Expected identifier” en utilidades de color**  
-	Revisa llaves del mapa (`accent`, no `"accent:"`) y que el mapa exista **antes** del `@each`.
+- **Conflicto con Bootstrap:**  
+  Usa clases `wm-` para aislar tu sistema (`.wm-btn--filled-*` en vez de `.btn`).
 
-- **Prepros no compila**  
-	Verifica rutas de entrada/salida y errores de sintaxis (falta `;` o `}`).
+- **Error en `@each`**  
+  Verifica que `$theme-colors` esté declarado antes del loop.
 
-- **CSS muy grande**  
-	Desactiva módulos no usados desde `main.scss`.
+- **No compila en Prepros**  
+  Revisa rutas y que no falten llaves o `;`.
 
 ---
 
 ## 📝 Changelog
 
-Ver `CHANGELOG.md`. Si usas releases y tags, agrega enlaces de comparación:
-
-```
-[Unreleased]: https://github.com/USUARIO/REPO/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/USUARIO/REPO/releases/tag/v1.0.0
-```
+Ver [`CHANGELOG.md`](CHANGELOG.md).  
+Usa tags y releases para versionar (`v1.0.0`, `v1.1.0`, etc.).
 
 ---
 
